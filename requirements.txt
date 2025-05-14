@@ -3,7 +3,7 @@ uvicorn
 torch==2.6
 torchvision
 scikit-learn
-opencv-python
+opencv-python-headless  # ✅ استبدال opencv-python
 Pillow
 joblib
 gdown
