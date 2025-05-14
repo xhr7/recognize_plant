@@ -1,6 +1,6 @@
 fastapi
 uvicorn
-torch
+torch==2.6
 torchvision
 scikit-learn
 opencv-python
