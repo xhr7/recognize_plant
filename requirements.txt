@@ -2,7 +2,8 @@ fastapi
 uvicorn
 torch
 torchvision
-Pillow
 scikit-learn
-joblib
 opencv-python
+Pillow
+joblib
+gdown
