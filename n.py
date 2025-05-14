@@ -8,32 +8,20 @@ from PIL import Image
 import numpy as np
 import cv2
 import os
-import gdown
 
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=["*"], allow_methods=["*"], allow_headers=["*"],
 )
 
-# تحميل نموذج DINOv2 إذا ما كان موجود
-MODEL_PATH = "dinov2_model.pt"
-FILE_ID = "1gD6k2kwNAB-mKgwSkRb8wOzs2NF0xD8w"
-URL = f"https://drive.google.com/uc?id={FILE_ID}"
 
-if not os.path.exists(MODEL_PATH):
-    print("🔽 Downloading DINOv2 model from Google Drive...")
-    gdown.download(URL, MODEL_PATH, quiet=False)
-
-# تحميل النموذج
-dinov2 = torch.jit.load(MODEL_PATH).eval()
+dinov2 = torch.hub.load('facebookresearch/dinov2', 'dinov2_vits14').eval()
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 dinov2 = dinov2.to(device)
 
-# تحميل SVM والمحول
+
 clf = joblib.load("models/plant_identifier_SVM_model.pkl")
 le = joblib.load("models/plant_label_encoder.pkl")
 
